@@ -1,0 +1,12 @@
+*
+*.*
+!*/
+!.gitignore
+!/pyproject.toml
+!/poetry.lock
+!*.py
+!*.md
+
+__pycache__/
+.vscode/
+/dist

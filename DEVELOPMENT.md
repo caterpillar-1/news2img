@@ -5,7 +5,7 @@
 > **注**: 包管理器 poetry 自动创建虚拟环境，不要在虚拟环境中运行脚本。
 
 ```sh
-$ curl -O- 'https://caterpillar.ink/install-news2img.sh' | bash
+$ wget -O- 'https://caterpillar.ink/install-news2img.sh' | bash
 ```
 
 可以先下载这个脚本看看执行流程。

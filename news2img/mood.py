@@ -12,7 +12,7 @@ class MoodDetection:
     def __init__(self, **kwargs):
         pass
 
-    def __call__(self, image: str | PIL.Image) -> List[Dict]:
+    def __call__(self, image: str | PIL.Image.Image) -> List[Dict]:
         """Get the mood of given image.
 
         Args:
@@ -35,7 +35,7 @@ class MoodDetectionCpu(MoodDetection):
         from transformers import pipeline
         self._mood_detection = pipeline("image-classification", model="dima806/facial_emotions_image_detection")
 
-    def __call__(self, image: str | cv2.UMat):
+    def __call__(self, image: str | PIL.Image.Image) -> List[Dict]:
         return self._mood_detection(image)
 
 __all__ = [MoodDetection, MoodDetectionCpu, MoodDetectionAscend]

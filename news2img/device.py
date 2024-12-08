@@ -9,7 +9,7 @@ class Camera:
     def __init__(self, id: int):
         self._capture = cv2.VideoCapture(id)
 
-    def __call__(self, frame_count: int=1) -> List[PIL.Image]:
+    def __call__(self, frame_count: int=1) -> List[Image.Image]:
         """
             Example:
                 ::

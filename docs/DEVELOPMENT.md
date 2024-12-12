@@ -24,7 +24,7 @@ $ wget -O- 'https://caterpillar.ink/install-news2img.sh' | bash
 
 ```sh
 $ # `-s` means save config file with cmd args and exit
-$ poetry exec -s --feed 'https://www.chinanews.com.cn/rss/scroll-news.xml'
+$ poetry exec -s --feed 'http://www.chinanews.com.cn/rss/scroll-news.xml'
 ```
 
 > **注**: 默认的配置文件格式为 INI, 位置为 `$HOME/.config/news2img/config.conf`，默认的运行日志只在 `stderr` 显示，环境变量请放在 `.env` 文件中。

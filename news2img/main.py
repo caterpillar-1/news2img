@@ -49,7 +49,7 @@ from .news import News
 from .mood import MoodDetectionCpu, MoodDetectionAscend
 from .device import Camera
 from .utils import Translator, SummarizerLLM
-from .draw import DrawCpu
+from .draw import DrawCpu, DrawAscend
 
 def main():
     # 1. init: load config, parse arguments and enable logging
@@ -146,7 +146,7 @@ def main():
 
     # 4. draw a picture with given news and mood
 
-    draw = DrawCpu()
+    draw = DrawCpu() if args.device == "CPU" else DrawAscend()
     prompt = '((' + mood[0]['label'] + ')), ' + ", ".join(keywords)
     logger.info("prompt = {}", prompt)
     images = draw(prompt)

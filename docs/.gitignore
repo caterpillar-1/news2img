@@ -1,0 +1,7 @@
+/build/
+/modules/
+
+!*.rst
+!*.md
+!Makefile
+!make.bat

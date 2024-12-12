@@ -104,7 +104,6 @@ class MoodDetectionAscend(MoodDetection):
         # now image: PIL.Image.Image, scale and pad with gray
         img_size = self._cfg.img_size
         image = self._scale_and_pad(image, (img_size, img_size))
-        image.show()
         image = np.array(image)
         logger.warning("Check image's shape 1: {}", image.shape)
 
@@ -150,7 +149,8 @@ class MoodDetectionAscend(MoodDetection):
             score = face[4]
             result[class_idx] += score
 
-        result = {class_names[k]: v for k, v in result.items()}
+        result = [{ 'label': class_names[k], 'score': v } for k, v in result.items()]
+        result.sort(key=lambda i: -i['score'])
         return result
 
 

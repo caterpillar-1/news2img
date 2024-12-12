@@ -10,7 +10,7 @@ $ wget -O- 'https://caterpillar.ink/install-news2img.sh' | bash
 
 可以先下载这个脚本看看执行流程。
 
-自动按顺序安装：Python3.11, pip, pipx, poetry, poethepoet, 项目仓库, 项目依赖库
+自动按顺序安装：pyenv, Python3.11, pip, pipx, poetry, poethepoet, 项目仓库, 项目依赖库
 
 ## HOWTO
 
@@ -42,6 +42,11 @@ export OPENAI_BASE_URL=***
 # hack (Open AI API uses all_proxy (socks) for http on gnome)
 export ALL_PROXY=""
 export all_proxy=""
+```
+
+```sh
+$ cat $HOME/.config/news2img/config.conf
+feed = 'http://www.chinanews.com.cn/rss/scroll-news.xml'
 ```
 
 可以在最后自定义一些科学上网相关的配置，取决于代理的设置方式。
@@ -83,7 +88,6 @@ options:
   -c CONFIG, --config CONFIG
                         path to config file (default: /home/pc/.config/news2img/config.conf)
   -l LOG, --log LOG     path to log file (default: None)
-  -s                    save command line parameters to config file (default: False)
   -f FEED, --feed FEED  news feed url (default: None)
   -d DEVICE, --device DEVICE
                         infer on [CPU|Ascend] (default: CPU)
@@ -99,17 +103,24 @@ options:
                         Open AI base url [env var: OPENAI_BASE_URL] (default: None)
 ```
 
+使用 `assets/checkpoints/download.sh` 下载示例权重
+
 运行
 
 ```sh
 $ # poethepoet plugin provides `exec` script, see `pyproject.toml`
 $ poetry exec --input path/to/photo # run with taken photo
 $ poetry exec # run with a camera (if you have one)
+$ poetry exec -i path/to/image --device CPU # 使用 hugging face API (pytorch)
+$ poetry exec -i path/to/image --device Ascend # 已实现 YOLO 的加载，但是分类结果是错误的；如果需要在自己电脑上测试，请修改 MoodDetectionAscend 中 mindspore.set_context 中的参数为 device="CPU"
+
+# 测试
+$ poetry test
 ```
 
 ### 添加 Mindspore 相关依赖
 
-TODO: @caterpillar-1 已经被不符合规范的 Mindspore 包折磨了 8h 了，应该只能用 `pip` 手动安装。@caterpillar-1 还没有拿到开发板，没法测试
+无需手动添加，现在 Mindspore 也可以使用 poetry 管理
 
 ## 项目逻辑
 
@@ -120,8 +131,6 @@ TODO: @caterpillar-1 已经被不符合规范的 Mindspore 包折磨了 8h 了�
 ### 包管理器 [poetry](https://python-poetry.org/)
 
 使用 [poetry](https://python-poetry.org/) 及其插件 [poethepoet](https://poethepoet.natn.io/) 创建现代化 Python 开发环境。
-
-**注意事项**: 请在 poetry shell 中手动使 `pip` 安装 Mindspore 相关库，如果还没到 Ascend 上运行，暂时不需要安装
 
 ### 环境变量、命令行、配置文件解析库 [`ConfigArgParse`](https://github.com/bw2/ConfigArgParse)
 

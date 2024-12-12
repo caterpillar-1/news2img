@@ -26,7 +26,6 @@ class Translator:
     """
 
     YOUDAO_URL = "https://openapi.youdao.com/api"
-    hash_algo = hashlib.sha256()
 
     def __init__(self, APP_KEY, APP_SECRET):
         self._APP_KEY = APP_KEY
@@ -34,13 +33,14 @@ class Translator:
 
     @staticmethod
     def _encrypt(sign_str):
-        Translator.hash_algo.update(sign_str.encode("utf-8"))
-        return Translator.hash_algo.hexdigest()
+        hasher = hashlib.sha256()
+        hasher.update(sign_str.encode("utf-8"))
+        return hasher.hexdigest()
 
-    @staticmethod
-    def _do_request(data):
+    @classmethod
+    def _do_request(cls, data):
         headers = {"Content-Type": "application/x-www-form-urlencoded"}
-        return requests.post(Translator.YOUDAO_URL, data=data, headers=headers).json()
+        return requests.post(cls.YOUDAO_URL, data=data, headers=headers).json()
 
     @staticmethod
     def _truncate(q):
@@ -117,4 +117,4 @@ class SummarizerTraditional(Summarizer):
     pass
 
 
-__all__ = [Summarizer, SummarizerLLM, SummarizerTraditional, Translator]
+__all__ = ['Summarizer', 'SummarizerLLM', 'SummarizerTraditional', 'Translator']

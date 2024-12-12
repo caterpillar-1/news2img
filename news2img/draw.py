@@ -35,3 +35,5 @@ class DrawCpu(Draw):
 
     def __call__(self, prompt):
         return self._pipe(prompt).images
+
+__all__ = ['Draw', 'DrawCpu', 'DrawAscend']

@@ -25,3 +25,5 @@ class Camera:
                     frame_list.append(Image.fromarray(cv2.cvtColor(frame ,cv2.COLOR_BGR2RGB)))
                 else:
                     logger.error("failed to capture")
+
+__all__ = ['Camera']

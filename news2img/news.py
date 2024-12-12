@@ -29,4 +29,4 @@ class News:
             if self._min_len <= len(e['summary']) <= self._max_len
         ]
 
-__all__ = [News]
+__all__ = ['News']

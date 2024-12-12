@@ -92,7 +92,7 @@ def main():
     # 2. get news and mood
     news = News(args.feed or config_error("feed"))
     args.device in ["CPU", "Ascend"] or config_error("device")
-    mood = MoodDetectionCpu() if args.device == "CPU" else MoodDetectionAscend("assets/configs/yolov8s.yolov8s.yaml") # TODO: change
+    mood = MoodDetectionCpu() if args.device == "CPU" else MoodDetectionAscend("assets/configs/yolov8s.yaml") # TODO: change
 
     if args.input:
         photo = Image.open(args.input)
